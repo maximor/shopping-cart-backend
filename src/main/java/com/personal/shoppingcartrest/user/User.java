@@ -1,7 +1,10 @@
 package com.personal.shoppingcartrest.user;
 
+import com.personal.shoppingcartrest.role.Role;
+
 import javax.persistence.*;
-//TODO MISSING THE ROLE RELATIONSHIP
+import java.util.Set;
+
 @Entity
 public class User {
     @Id
@@ -24,6 +27,9 @@ public class User {
     @Column(nullable = false)
     private boolean active;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
+
     public User() {
     }
 
@@ -33,6 +39,15 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.active = active;
+    }
+
+    public User(String email, String password, String firstName, String lastName, boolean active, Set<Role> roles) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.active = active;
+        this.roles = roles;
     }
 
     public User(String email, String password) {
@@ -86,5 +101,13 @@ public class User {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
