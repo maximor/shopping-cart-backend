@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "_order")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
