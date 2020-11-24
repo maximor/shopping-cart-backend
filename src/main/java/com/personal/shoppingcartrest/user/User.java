@@ -1,8 +1,13 @@
 package com.personal.shoppingcartrest.user;
 
 import com.personal.shoppingcartrest.role.Role;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -11,6 +16,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, unique = true)
     private long id;
+
+    @CreatedDate
+    @CreationTimestamp
+    private Date creationDate;
+
+    @LastModifiedDate
+    @UpdateTimestamp
+    private Date updatedDate;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -61,6 +74,22 @@ public class User {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
     }
 
     public String getEmail() {
