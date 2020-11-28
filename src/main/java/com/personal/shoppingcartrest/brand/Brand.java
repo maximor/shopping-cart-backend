@@ -39,11 +39,23 @@ public class Brand {
     public Brand() {
     }
 
+    public Brand(String name, User user) {
+        this.name = name;
+        this.user = user;
+    }
+
     public Brand(String name, String description, boolean active) {
         this.name = name;
         this.description = description;
         this.active = active;
     }
+
+    public Brand(String name, String description, User user) {
+        this.name = name;
+        this.description = description;
+        this.user = user;
+    }
+
 
     public long getId() {
         return id;
