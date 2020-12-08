@@ -2,6 +2,7 @@ package com.personal.shoppingcartrest.product;
 
 import com.personal.shoppingcartrest.brand.Brand;
 import com.personal.shoppingcartrest.category.Category;
+import com.personal.shoppingcartrest.media.Media;
 import com.personal.shoppingcartrest.user.User;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -10,6 +11,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Product {
@@ -45,6 +47,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;
+
+    @OneToMany
+    private List<Media> medias;
 
     public Product() {
     }
@@ -143,5 +148,13 @@ public class Product {
 
     public void setBrand(Brand brand) {
         this.brand = brand;
+    }
+
+    public List<Media> getMedias() {
+        return medias;
+    }
+
+    public void setMedias(List<Media> medias) {
+        this.medias = medias;
     }
 }
