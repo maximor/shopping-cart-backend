@@ -20,7 +20,14 @@ public class BrandController {
     public ResponseEntity getBrands(){
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(brandRepository.findAll());
+                .body(brandRepository.findAllByActiveTrue());
+    }
+
+    @RequestMapping("/brands/inactive")
+    public ResponseEntity getBrandsInactive(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(brandRepository.findAllByActiveFalse());
     }
 
     @RequestMapping("/brands/pages/{page}/{size}")
@@ -38,7 +45,25 @@ public class BrandController {
         Pageable currentPage = PageRequest.of(page, size);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(brandRepository.findAll(currentPage));
+                .body(brandRepository.findAllByActiveTrue(currentPage));
+    }
+
+    @RequestMapping("/brands/inactive/pages/{page}/{size}")
+    public ResponseEntity getBrandsByPagesInactive(@PathVariable Integer page, @PathVariable Integer size) {
+        if(page == null || size == null){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorMessage(400,
+                            new Date(),
+                            "Bad Request",
+                            "Error, the field [page] or [size] cannot be empty",
+                            "/brands/pages/{page}/{size}"));
+        }
+
+        Pageable currentPage = PageRequest.of(page, size);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(brandRepository.findAllByActiveFalse(currentPage));
     }
 
     @RequestMapping("/brand/{id}")

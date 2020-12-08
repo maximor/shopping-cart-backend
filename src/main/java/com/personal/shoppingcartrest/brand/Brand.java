@@ -30,7 +30,7 @@ public class Brand {
     private String description;
 
     @Column(nullable = false)
-    private boolean active;
+    private boolean active = true;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
