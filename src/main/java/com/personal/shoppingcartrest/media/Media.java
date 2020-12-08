@@ -1,5 +1,6 @@
 package com.personal.shoppingcartrest.media;
 
+import com.personal.shoppingcartrest.product.Product;
 import com.personal.shoppingcartrest.type.Type;
 import com.personal.shoppingcartrest.user.User;
 import org.hibernate.annotations.CreationTimestamp;
@@ -42,6 +43,10 @@ public class Media {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
+
     public Media() {
     }
 
@@ -57,6 +62,15 @@ public class Media {
         this.main = main;
         this.active = active;
         this.user = user;
+    }
+
+    public Media(String mediaPath, Type type, boolean main, User user, Product product, boolean active) {
+        this.mediaPath = mediaPath;
+        this.type = type;
+        this.main = main;
+        this.active = active;
+        this.user = user;
+        this.product = product;
     }
 
     public long getId() {
@@ -121,5 +135,13 @@ public class Media {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }
