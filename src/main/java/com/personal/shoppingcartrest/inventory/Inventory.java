@@ -1,5 +1,6 @@
 package com.personal.shoppingcartrest.inventory;
 
+import com.personal.shoppingcartrest.product.Product;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -26,19 +27,24 @@ public class Inventory {
     @Column(name = "unit_in_stock", nullable = false)
     private int unitInStock = 0;
 
-    @Column(name = "total_unit_sold")
+    @Column(name = "total_unit_sold", nullable = false)
     private int totalUnitSold = 0;
 
     @Column(name = "gross_sale", nullable = false)
     private float grossSale = 0.0f;
 
+   @OneToOne
+   @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
+
     public Inventory() {
     }
 
-    public Inventory(int unitInStock, int totalUnitSold, float grossSale) {
+    public Inventory(int unitInStock, int totalUnitSold, float grossSale, Product product) {
         this.unitInStock = unitInStock;
         this.totalUnitSold = totalUnitSold;
         this.grossSale = grossSale;
+        this.product = product;
     }
 
     public long getId() {
@@ -87,5 +93,13 @@ public class Inventory {
 
     public void setGrossSale(float grossSale) {
         this.grossSale = grossSale;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }
