@@ -2,6 +2,7 @@ package com.personal.shoppingcartrest.product;
 
 import com.personal.shoppingcartrest.brand.Brand;
 import com.personal.shoppingcartrest.category.Category;
+import com.personal.shoppingcartrest.inventory.Inventory;
 import com.personal.shoppingcartrest.media.Media;
 import com.personal.shoppingcartrest.user.User;
 import org.hibernate.annotations.CreationTimestamp;
@@ -34,7 +35,7 @@ public class Product {
     private String description;
 
     @Column(nullable = false)
-    private boolean active = false;
+    private boolean active = true;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -50,6 +51,7 @@ public class Product {
 
     @OneToMany
     private List<Media> medias;
+
 
     public Product() {
     }

@@ -5,6 +5,8 @@ import com.personal.shoppingcartrest.brand.BrandRepository;
 import com.personal.shoppingcartrest.category.Category;
 import com.personal.shoppingcartrest.category.CategoryRepository;
 import com.personal.shoppingcartrest.errormessage.ErrorMessage;
+import com.personal.shoppingcartrest.inventory.Inventory;
+import com.personal.shoppingcartrest.inventory.InventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +26,9 @@ public class ProductController {
 
     @Autowired
     private BrandRepository brandRepository;
+
+    @Autowired
+    private InventoryRepository inventoryRepository;
 
     @RequestMapping("/products")
     public ResponseEntity getProducts(){
@@ -171,9 +176,12 @@ public class ProductController {
                             "/product"));
         }
 
+        product = productRepository.save(product);
+        inventoryRepository.save(new Inventory(0,0,0, product));
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(productRepository.save(product));
+                .body(product);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/product")
