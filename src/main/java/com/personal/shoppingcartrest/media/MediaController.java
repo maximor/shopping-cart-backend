@@ -5,7 +5,6 @@ import com.personal.shoppingcartrest.product.Product;
 import com.personal.shoppingcartrest.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +34,7 @@ public class MediaController {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(mediaRepository.findAllByProductId(productId));
+                .body(mediaRepository.findAllByProductIdAndActiveTrue(productId));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/media")

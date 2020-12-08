@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface MediaRepository extends JpaRepository<Media, Long> {
     Media findById(long id);
-    List<Media> findAllByProductId(long productId);
+    List<Media> findAllByProductIdAndActiveTrue(long productId);
 }

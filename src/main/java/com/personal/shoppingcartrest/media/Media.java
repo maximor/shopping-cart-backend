@@ -33,7 +33,7 @@ public class Media {
     private boolean main = false;
 
     @Column(nullable = false)
-    private boolean active = false;
+    private boolean active = true;
 
     @OneToOne
     @JoinColumn(name = "type_id")
