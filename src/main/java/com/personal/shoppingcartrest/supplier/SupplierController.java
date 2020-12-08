@@ -19,7 +19,14 @@ public class SupplierController {
     public ResponseEntity getSuppliers(){
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(supplierRepository.findAll());
+                .body(supplierRepository.findAllByActiveTrue());
+    }
+
+    @RequestMapping("/suppliers/inactive")
+    public ResponseEntity getSuppliersInactive(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(supplierRepository.findAllByActiveFalse());
     }
 
     @RequestMapping("/suppliers/pages/{page}/{size}")
@@ -37,7 +44,25 @@ public class SupplierController {
         Pageable currentPage = PageRequest.of(page, size);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(supplierRepository.findAll(currentPage));
+                .body(supplierRepository.findAllByActiveTrue(currentPage));
+    }
+
+    @RequestMapping("/suppliers/inactive/pages/{page}/{size}")
+    public ResponseEntity getSupplierByPagesInactive(@PathVariable Integer page, @PathVariable Integer size){
+        if(page == null || size == null){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorMessage(400,
+                            new Date(),
+                            "Bad Request",
+                            "Error, the field [page] or [size] cannot be empty",
+                            "/suppliers/pages/{page}/{size}"));
+        }
+
+        Pageable currentPage = PageRequest.of(page, size);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(supplierRepository.findAllByActiveFalse(currentPage));
     }
 
     @RequestMapping("/supplier/{id}")

@@ -34,7 +34,7 @@ public class Supplier {
     private String address;
 
     @Column(nullable = false)
-    private boolean active = false;
+    private boolean active = true;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
