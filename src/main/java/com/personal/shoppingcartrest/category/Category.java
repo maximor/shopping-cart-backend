@@ -31,7 +31,7 @@ public class Category {
     private String description;
 
     @Column(nullable = false)
-    private boolean active = false;
+    private boolean active = true;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

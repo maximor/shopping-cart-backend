@@ -19,7 +19,14 @@ public class CategoryController {
     public ResponseEntity getCategories(){
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(categoryRepository.findAll());
+                .body(categoryRepository.findAllByActiveTrue());
+    }
+
+    @RequestMapping("/categories/inactive")
+    public ResponseEntity getCategoriesInactive(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(categoryRepository.findAllByActiveFalse());
     }
 
     @RequestMapping("/categories/pages/{page}/{size}")
@@ -37,7 +44,25 @@ public class CategoryController {
         Pageable currentPage = PageRequest.of(page, size);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(categoryRepository.findAll(currentPage));
+                .body(categoryRepository.findAllByActiveTrue(currentPage));
+    }
+
+    @RequestMapping("/categories/inactive/pages/{page}/{size}")
+    public ResponseEntity getCategoriesByPagesInactive(@PathVariable Integer page, @PathVariable Integer size){
+        if(page == null || size == null){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorMessage(400,
+                            new Date(),
+                            "Bad Request",
+                            "Error, the field [page] or [size] cannot be empty",
+                            "/categories/inactive/pages/{page}/{size}"));
+        }
+
+        Pageable currentPage = PageRequest.of(page, size);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(categoryRepository.findAllByActiveFalse(currentPage));
     }
 
     @RequestMapping("/category/{id}")

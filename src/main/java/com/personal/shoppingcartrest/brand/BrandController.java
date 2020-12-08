@@ -57,7 +57,7 @@ public class BrandController {
                             new Date(),
                             "Bad Request",
                             "Error, the field [page] or [size] cannot be empty",
-                            "/brands/pages/{page}/{size}"));
+                            "/brands/inactive/pages/{page}/{size}"));
         }
 
         Pageable currentPage = PageRequest.of(page, size);
