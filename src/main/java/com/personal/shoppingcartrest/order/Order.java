@@ -1,5 +1,6 @@
 package com.personal.shoppingcartrest.order;
 
+import com.personal.shoppingcartrest.status.Status;
 import com.personal.shoppingcartrest.user.User;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -23,22 +24,23 @@ public class Order {
     private float totalCost;
 
     @Column(nullable = false)
-    private String status = "open";
-
-    @Column(nullable = false)
     private boolean cancelled = false;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @OneToOne
+    @JoinColumn(name = "status_id", nullable = false)
+    private Status status;
+
     public Order() {
     }
 
-    public Order(float totalCost, String status, User user) {
+    public Order(float totalCost, Status status, User user) {
         this.totalCost = totalCost;
-        this.status = status;
         this.user = user;
+        this.status = status;
     }
 
     public long getId() {
@@ -65,14 +67,6 @@ public class Order {
         this.totalCost = totalCost;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public boolean isCancelled() {
         return cancelled;
     }
@@ -87,5 +81,13 @@ public class Order {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
