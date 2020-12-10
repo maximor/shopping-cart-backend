@@ -90,7 +90,7 @@ public class StatusController {
                         "/status/"+id));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/brand/{id}")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/status/{id}")
     public ResponseEntity deleteStatus(@PathVariable long id){
         Status status = statusRepository.findById(id);
 
